@@ -5,6 +5,7 @@ import 'package:weather_app/config/color.dart';
 import 'package:weather_app/config/helpers.dart';
 import 'package:weather_app/config/location_service.dart';
 import 'package:weather_app/models/current_weather.dart';
+import 'package:weather_app/models/fore_cast.dart';
 import 'package:weather_app/widgets/temp_row_text.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,15 +16,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  ForeCast foreCast = ForeCast();
   CurrentWeather currentWeather = CurrentWeather();
   LocationService locationService = LocationService();
+  Future<List<ForeCast>>? foreCasts;
 
   void setUpview() async {
     Position currentLocation = await locationService.getLocation();
     double lon = currentLocation.longitude;
     double lat = currentLocation.latitude;
 
+    foreCasts = foreCast.fetchData(lat, lon);
     CurrentWeather weather = await currentWeather.fetchData(lat, lon);
+
     setState(() {
       minTemp = weather.minTemp!.round();
       maxTemp = weather.maxTemp!.round();
@@ -97,6 +102,78 @@ class _HomeScreenState extends State<HomeScreen> {
           const Divider(
             color: WeatherAppColor.white,
           ),
+          FutureBuilder<List<ForeCast>>(
+            future: foreCasts,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<ForeCast>? data = snapshot.data;
+                if (data!.isEmpty) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Could not fetch forecast data",
+                        style: primaryTextStyle(
+                            color: WeatherAppColor.white, size: 18),
+                      ).paddingTop(40),
+                    ],
+                  );
+                }
+
+                return Expanded(
+                  child: ListView.builder(
+                    padding: const EdgeInsets.only(top: 15),
+                    itemCount: data.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: 70,
+                            child: Text(
+                              data[index].day!,
+                              style: primaryTextStyle(
+                                color: WeatherAppColor.white,
+                                size: 18,
+                              ),
+                            ),
+                          ),
+                          const Icon(
+                            Icons.sunny,
+                            color: WeatherAppColor.white,
+                            size: 24,
+                          ),
+                          Text(
+                            "${data[index].temp!}${Helpers.degreeSymbol}",
+                            style: primaryTextStyle(
+                              color: WeatherAppColor.white,
+                              size: 18,
+                            ),
+                          ),
+                        ],
+                      ).paddingBottom(15);
+                    },
+                  ).paddingSymmetric(horizontal: 10),
+                );
+              }
+
+              //show loader when fetching data
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 35,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: WeatherAppColor.white,
+                    ),
+                  ).paddingTop(40)
+                ],
+              );
+            },
+          )
         ],
       ),
     );

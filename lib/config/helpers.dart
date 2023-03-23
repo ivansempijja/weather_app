@@ -49,4 +49,21 @@ class Helpers {
     String theme = "forest";
     return "assets/images/${theme}_$weather.png";
   }
+
+  static String setweatherIcon(String weather) {
+    String icon = "clear.png";
+    if (weather == "Rain") {
+      icon = "rain.png";
+    }
+
+    if (weather == "Clear") {
+      icon = "clear.png";
+    }
+
+    if (weather == "Clouds") {
+      icon = "partlysunny.png";
+    }
+
+    return "assets/icons/$icon";
+  }
 }
