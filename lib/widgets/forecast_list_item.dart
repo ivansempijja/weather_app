@@ -43,6 +43,6 @@ class ForeCastListItem extends StatelessWidget {
           ),
         ),
       ],
-    ).paddingBottom(15);
+    ).paddingBottom(20);
   }
 }

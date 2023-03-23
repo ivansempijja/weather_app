@@ -7,6 +7,7 @@ import 'package:weather_app/config/location_service.dart';
 import 'package:weather_app/models/current_weather.dart';
 import 'package:weather_app/models/fore_cast.dart';
 import 'package:weather_app/widgets/forecast_list_item.dart';
+import 'package:weather_app/widgets/more_actions_button.dart';
 import 'package:weather_app/widgets/temp_row_text.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -124,9 +125,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 return Expanded(
                   child: ListView.builder(
-                    padding: const EdgeInsets.only(top: 15),
-                    itemCount: data.length,
+                    padding: const EdgeInsets.only(top: 20),
+                    itemCount: data.length + 1,
                     itemBuilder: (BuildContext context, int index) {
+                      if (index == data.length) {
+                        return MoreActionsButton(weatherColor: weatherColor);
+                      }
+
                       return ForeCastListItem(
                         day: data[index].day!,
                         weatherIcon: data[index].icon!,
