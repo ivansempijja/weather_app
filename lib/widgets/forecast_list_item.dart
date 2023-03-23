@@ -32,9 +32,9 @@ class ForeCastListItem extends StatelessWidget {
         ),
         ImageIcon(
           AssetImage(weatherIcon),
-          size: 18,
+          size: 14,
           color: WeatherAppColor.white,
-        ),
+        ).paddingRight(20),
         Text(
           "$temp${Helpers.degreeSymbol}",
           style: primaryTextStyle(

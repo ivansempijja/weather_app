@@ -6,6 +6,7 @@ import 'package:weather_app/config/helpers.dart';
 import 'package:weather_app/config/location_service.dart';
 import 'package:weather_app/models/current_weather.dart';
 import 'package:weather_app/models/fore_cast.dart';
+import 'package:weather_app/widgets/forecast_list_item.dart';
 import 'package:weather_app/widgets/temp_row_text.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -126,33 +127,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.only(top: 15),
                     itemCount: data.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                            width: 70,
-                            child: Text(
-                              data[index].day!,
-                              style: primaryTextStyle(
-                                color: WeatherAppColor.white,
-                                size: 18,
-                              ),
-                            ),
-                          ),
-                          const Icon(
-                            Icons.sunny,
-                            color: WeatherAppColor.white,
-                            size: 24,
-                          ),
-                          Text(
-                            "${data[index].temp!}${Helpers.degreeSymbol}",
-                            style: primaryTextStyle(
-                              color: WeatherAppColor.white,
-                              size: 18,
-                            ),
-                          ),
-                        ],
-                      ).paddingBottom(15);
+                      return ForeCastListItem(
+                        day: data[index].day!,
+                        weatherIcon: data[index].icon!,
+                        temp: data[index].temp!,
+                      );
                     },
                   ).paddingSymmetric(horizontal: 10),
                 );

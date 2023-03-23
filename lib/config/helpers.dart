@@ -51,19 +51,19 @@ class Helpers {
   }
 
   static String setweatherIcon(String weather) {
-    String icon = "clear.png";
+    String icon = "clear";
     if (weather == "Rain") {
-      icon = "rain.png";
+      icon = "rain";
     }
 
     if (weather == "Clear") {
-      icon = "clear.png";
+      icon = "clear";
     }
 
     if (weather == "Clouds") {
-      icon = "partlysunny.png";
+      icon = "partlysunny";
     }
 
-    return "assets/icons/$icon";
+    return "assets/icons/$icon@3x.png";
   }
 }
