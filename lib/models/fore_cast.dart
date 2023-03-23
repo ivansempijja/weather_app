@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app/config/api.dart';
+import 'package:weather_app/config/app_units_service.dart';
 import 'package:weather_app/config/helpers.dart';
 
 class ForeCast {
@@ -36,6 +37,9 @@ class ForeCast {
 
   ///fetch forecast data from open weather API
   Future<List<ForeCast>> fetchData(double latidute, double longitude) async {
+    AppUnitsService appUnitsService = AppUnitsService();
+    AppUnitsService appUnit = await appUnitsService.getAppUnits();
+
     final dio = Dio();
     try {
       Response response = await dio.get(
@@ -44,7 +48,7 @@ class ForeCast {
           "lat": latidute,
           "lon": longitude,
           "appid": API.apiKey,
-          "units": "metric"
+          "units": appUnit.unit
         },
       );
 

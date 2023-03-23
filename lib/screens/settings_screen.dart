@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:weather_app/config/color.dart';
 import 'package:weather_app/screens/actions/select_theme.dart';
+import 'package:weather_app/screens/actions/select_units.dart';
 import 'package:weather_app/screens/home_screen.dart';
 import 'package:weather_app/widgets/custom_app_bar.dart';
 
@@ -27,6 +28,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     if (tabIndex == 2) {
       const SelectTheme().launch(context);
+    }
+
+    if (tabIndex == 3) {
+      const SelectUnits().launch(context);
     }
   }
 

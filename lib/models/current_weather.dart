@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:weather_app/config/api.dart';
+import 'package:weather_app/config/app_units_service.dart';
 
 class CurrentWeather {
   final String? weather;
@@ -24,6 +25,9 @@ class CurrentWeather {
   }
 
   fetchData(double latidute, double longitude) async {
+    AppUnitsService appUnitsService = AppUnitsService();
+    AppUnitsService appUnit = await appUnitsService.getAppUnits();
+
     final dio = Dio();
     try {
       Response response = await dio.get(
@@ -32,7 +36,7 @@ class CurrentWeather {
           "lat": latidute,
           "lon": longitude,
           "appid": API.apiKey,
-          "units": "metric"
+          "units": appUnit.unit
         },
       );
       return CurrentWeather.fromJson(response.data);

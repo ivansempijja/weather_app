@@ -1,3 +1,5 @@
+import 'package:nb_utils/nb_utils.dart';
+
 class AppUnitsService {
   final String? unit;
 
@@ -7,8 +9,20 @@ class AppUnitsService {
     return AppUnitsService(unit: unit);
   }
 
-  setUnit() async {
+  getAppUnits() async {
+    final prefs = await SharedPreferences.getInstance();
+    var appUnits = prefs.getString("appUits");
+    if (appUnits != null) {
+      return AppUnitsService.fromString(appUnits);
+    }
 
+    String units = "metric";
+    return setUnits(units);
   }
 
+  setUnits(String units) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString("appUits", units);
+    return AppUnitsService.fromString(units);
+  }
 }
