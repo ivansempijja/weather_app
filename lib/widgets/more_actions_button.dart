@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:weather_app/config/color.dart';
+import 'package:weather_app/config/navigation_service.dart';
+import 'package:weather_app/screens/settings_screen.dart';
 
 class MoreActionsButton extends StatelessWidget {
   const MoreActionsButton({
@@ -22,7 +24,7 @@ class MoreActionsButton extends StatelessWidget {
         children: [
           ListTile(
             onTap: () {
-              print("ivan");
+              NavigationService().navigateToScreen(const SettingsScreen());
             },
             leading: const Icon(
               Icons.settings,
