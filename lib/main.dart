@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:weather_app/config/navigation_service.dart';
 import 'package:weather_app/screens/home_screen.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences.getInstance();
   runApp(const MyApp());
 }
 

@@ -45,8 +45,7 @@ class Helpers {
     return "Loading";
   }
 
-  static String setBackgroundImage(String weather) {
-    String theme = "forest";
+  static String setBackgroundImage(String weather, String theme) {
     return "assets/images/${theme}_$weather.png";
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:weather_app/config/app_theme_service.dart';
 import 'package:weather_app/config/color.dart';
 import 'package:weather_app/config/helpers.dart';
 import 'package:weather_app/config/location_service.dart';
@@ -21,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ForeCast foreCast = ForeCast();
   CurrentWeather currentWeather = CurrentWeather();
   LocationService locationService = LocationService();
+  AppThemeService appThemeService = AppThemeService();
   Future<List<ForeCast>>? foreCasts;
 
   void setUpview() async {
@@ -30,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     foreCasts = foreCast.fetchData(lat, lon);
     CurrentWeather weather = await currentWeather.fetchData(lat, lon);
+    AppThemeService appTheme = await appThemeService.getAppTheme();
 
     setState(() {
       minTemp = weather.minTemp!.round();
@@ -38,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
       String apiWeather = Helpers.setWeather(weather.weather!);
       weatherString = apiWeather.toUpperCase();
       weatherColor = Helpers.setColor(apiWeather);
-      bgImage = Helpers.setBackgroundImage(apiWeather);
+      bgImage = Helpers.setBackgroundImage(apiWeather, appTheme.theme!);
     });
   }
 
@@ -47,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentTemp = 0;
   String weatherString = Helpers.setWeather("loading").toUpperCase();
   Color weatherColor = Helpers.setColor("loading");
-  String bgImage = Helpers.setBackgroundImage("sunny");
+  String bgImage = Helpers.setBackgroundImage("sunny", "sea"); //Todo: get default loading theme image
 
   @override
   void initState() {
@@ -128,7 +131,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.only(top: 20),
                     itemCount: data.length + 1,
                     itemBuilder: (BuildContext context, int index) {
-                      if (index == data.length) { //Add widget at end of list 
+                      if (index == data.length) {
+                        //Add widget at end of list
                         return MoreActionsButton(weatherColor: weatherColor);
                       }
 

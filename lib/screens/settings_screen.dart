@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:weather_app/config/color.dart';
-import 'package:weather_app/config/navigation_service.dart';
+import 'package:weather_app/screens/actions/select_theme.dart';
 import 'package:weather_app/screens/home_screen.dart';
 import 'package:weather_app/widgets/custom_app_bar.dart';
 
@@ -22,7 +22,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   action(int tabIndex) async {
     if (tabIndex == 0) {
-      return NavigationService().popToFirst(const HomeScreen());
+      const HomeScreen().launch(context, isNewTask: true);
+    }
+
+    if (tabIndex == 2) {
+      const SelectTheme().launch(context);
     }
   }
 
