@@ -4,6 +4,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:weather_app/config/color.dart';
 import 'package:weather_app/config/helpers.dart';
 import 'package:weather_app/config/location_service.dart';
+import 'package:weather_app/models/current_weather.dart';
 import 'package:weather_app/widgets/temp_row_text.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,12 +15,32 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  CurrentWeather currentWeather = CurrentWeather();
   LocationService locationService = LocationService();
+
   void setUpview() async {
     Position currentLocation = await locationService.getLocation();
-    double Longitude = currentLocation.longitude;
-    double Latitude = currentLocation.latitude;
+    double lon = currentLocation.longitude;
+    double lat = currentLocation.latitude;
+
+    CurrentWeather weather = await currentWeather.fetchData(lat, lon);
+    setState(() {
+      minTemp = weather.minTemp!.round();
+      maxTemp = weather.maxTemp!.round();
+      currentTemp = weather.currentTemp!.round();
+      String apiWeather = Helpers.setWeather(weather.weather!);
+      weatherString = apiWeather.toUpperCase();
+      weatherColor = Helpers.setColor(apiWeather);
+      bgImage = Helpers.setBackgroundImage(apiWeather);
+    });
   }
+
+  int minTemp = 0;
+  int maxTemp = 0;
+  int currentTemp = 0;
+  String weatherString = Helpers.setWeather("loading").toUpperCase();
+  Color weatherColor = Helpers.setColor("loading");
+  String bgImage = Helpers.setBackgroundImage("sunny");
 
   @override
   void initState() {
@@ -30,15 +51,15 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: WeatherAppColor.sunny,
+      backgroundColor: weatherColor,
       body: Column(
         children: <Widget>[
           Container(
             width: double.infinity,
-            height: Helpers.displayHeight(context) * 0.45,
-            decoration: const BoxDecoration(
+            height: Helpers.displayHeight(context) * 0.5,
+            decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/forest_sunny.png"),
+                image: AssetImage(bgImage),
                 fit: BoxFit.cover,
               ),
             ),
@@ -47,14 +68,14 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "25${Helpers.degreeSymbol}",
+                  "$currentTemp${Helpers.degreeSymbol}",
                   style: primaryTextStyle(
                     size: 100,
                     color: WeatherAppColor.white,
                   ),
                 ),
                 Text(
-                  "SUNNY",
+                  weatherString,
                   style: primaryTextStyle(
                     size: 50,
                     color: WeatherAppColor.white,
@@ -66,13 +87,16 @@ class _HomeScreenState extends State<HomeScreen> {
           10.height,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const <Widget>[
-              TempRowText(temp: 19, text: "min"),
-              TempRowText(temp: 19, text: "current"),
-              TempRowText(temp: 19, text: "max"),
+            children: <Widget>[
+              TempRowText(temp: minTemp, text: "min"),
+              TempRowText(temp: currentTemp, text: "current"),
+              TempRowText(temp: maxTemp, text: "max"),
             ],
           ).paddingSymmetric(horizontal: 14),
           10.height,
+          const Divider(
+            color: WeatherAppColor.white,
+          ),
         ],
       ),
     );
