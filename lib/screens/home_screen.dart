@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:weather_app/config/color.dart';
 import 'package:weather_app/config/helpers.dart';
+import 'package:weather_app/config/location_service.dart';
 import 'package:weather_app/widgets/temp_row_text.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,6 +14,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  LocationService locationService = LocationService();
+  void setUpview() async {
+    Position currentLocation = await locationService.getLocation();
+    double Longitude = currentLocation.longitude;
+    double Latitude = currentLocation.latitude;
+  }
+
+  @override
+  void initState() {
+    setUpview();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: <Widget>[
           Container(
             width: double.infinity,
-            height: Helpers.displayHeight(context) * 0.5,
+            height: Helpers.displayHeight(context) * 0.45,
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/images/forest_sunny.png"),
@@ -33,12 +48,18 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Text(
                   "25${Helpers.degreeSymbol}",
-                  style: boldTextStyle(
+                  style: primaryTextStyle(
                     size: 100,
                     color: WeatherAppColor.white,
                   ),
                 ),
-                const Text("Rainy"),
+                Text(
+                  "SUNNY",
+                  style: primaryTextStyle(
+                    size: 50,
+                    color: WeatherAppColor.white,
+                  ),
+                ),
               ],
             ),
           ),

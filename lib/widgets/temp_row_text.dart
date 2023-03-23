@@ -15,11 +15,11 @@ class TempRowText extends StatelessWidget {
       children: [
         Text(
           "$temp${Helpers.degreeSymbol}",
-          style: boldTextStyle(color: WeatherAppColor.white, size: 16),
+          style: boldTextStyle(color: WeatherAppColor.white, size: 20),
         ),
         Text(
           text,
-          style: primaryTextStyle(color: WeatherAppColor.white, size: 14),
+          style: primaryTextStyle(color: WeatherAppColor.white, size: 16),
         ),
       ],
     );
