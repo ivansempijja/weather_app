@@ -16,21 +16,31 @@ class MoreActionsButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
       ),
-      elevation: 20,
+      elevation: 15,
       color: weatherColor,
       child: Column(
         children: [
           ListTile(
+            onTap: () {
+              print("ivan");
+            },
             leading: const Icon(
               Icons.settings,
-              size: 24,
+              size: 34,
               color: WeatherAppColor.white,
             ),
             title: Text(
-              'Tap to view more Actions',
+              'More Actions',
               style: primaryTextStyle(
                 color: WeatherAppColor.white,
-                size: 16,
+                size: 14,
+              ),
+            ),
+            subtitle: Text(
+              'Manage theme, favorites, units and more',
+              style: primaryTextStyle(
+                color: WeatherAppColor.white,
+                size: 12,
               ),
             ),
             trailing: const Icon(

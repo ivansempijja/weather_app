@@ -128,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.only(top: 20),
                     itemCount: data.length + 1,
                     itemBuilder: (BuildContext context, int index) {
-                      if (index == data.length) {
+                      if (index == data.length) { //Add widget at end of list 
                         return MoreActionsButton(weatherColor: weatherColor);
                       }
 
