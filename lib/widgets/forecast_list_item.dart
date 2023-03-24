@@ -21,7 +21,7 @@ class ForeCastListItem extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(
-          width: 70,
+          width: 100,
           child: Text(
             day,
             style: primaryTextStyle(
@@ -30,11 +30,10 @@ class ForeCastListItem extends StatelessWidget {
             ),
           ),
         ),
-        ImageIcon(
-          AssetImage(weatherIcon),
-          size: 14,
-          color: WeatherAppColor.white,
-        ).paddingRight(20),
+        Image(
+          image: AssetImage(weatherIcon),
+          height: 22,
+        ).paddingRight(25),
         Text(
           "$temp${Helpers.degreeSymbol}",
           style: primaryTextStyle(

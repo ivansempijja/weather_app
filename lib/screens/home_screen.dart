@@ -134,7 +134,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemBuilder: (BuildContext context, int index) {
                       if (index == data.length) {
                         //Add widget at end of list
-                        return MoreActionsButton(weatherColor: weatherColor);
+                        return MoreActionsButton(
+                          weatherColor: weatherColor,
+                        ).paddingBottom(30);
                       }
 
                       return ForeCastListItem(
