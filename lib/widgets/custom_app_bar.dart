@@ -6,9 +6,11 @@ class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
     super.key,
     required this.headerText,
+    this.actionButton = const SizedBox(width: 0),
   });
 
   final String headerText;
+  final Widget actionButton;
 
   @override
   Widget build(BuildContext context) {
@@ -19,18 +21,24 @@ class CustomAppBar extends StatelessWidget {
         borderRadius: BorderRadius.zero,
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const BackButton(
-            color: WeatherAppColor.white,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const BackButton(
+                color: WeatherAppColor.white,
+              ),
+              Text(
+                headerText,
+                style: primaryTextStyle(
+                  color: WeatherAppColor.white,
+                  size: 22,
+                ),
+              )
+            ],
           ),
-          Text(
-            headerText,
-            style: primaryTextStyle(
-              color: WeatherAppColor.white,
-              size: 22,
-            ),
-          )
+          actionButton,
         ],
       ),
     );

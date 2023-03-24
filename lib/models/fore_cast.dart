@@ -46,7 +46,9 @@ class ForeCast {
         return cacheJson;
       }
 
-      return Future.error("error fetching forecast data");
+      //return empty list so view can show error
+      List<ForeCast> noReturnedData = [];
+      return noReturnedData;
     }
 
     List jsonResponse = [];

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:weather_app/config/color.dart';
+import 'package:weather_app/screens/actions/favarites/list_favourites.dart';
 import 'package:weather_app/screens/actions/select_theme.dart';
 import 'package:weather_app/screens/actions/select_units.dart';
 import 'package:weather_app/screens/home_screen.dart';
@@ -16,7 +17,7 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   List<String> actionsList = [
     'Refresh data',
-    'Manage favourites',
+    'My favourites',
     'Select app theme',
     'Select weather units',
   ];
@@ -24,6 +25,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   action(int tabIndex) async {
     if (tabIndex == 0) {
       const HomeScreen().launch(context, isNewTask: true);
+    }
+
+    if (tabIndex == 1) {
+      const ListFavourites().launch(context);
     }
 
     if (tabIndex == 2) {
