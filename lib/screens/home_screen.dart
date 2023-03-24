@@ -27,11 +27,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void setUpview() async {
     Position currentLocation = await locationService.getLocation();
-    double lon = currentLocation.longitude;
-    double lat = currentLocation.latitude;
 
-    foreCasts = foreCast.fetchData();
-    CurrentWeather weather = await currentWeather.fetchData(lat, lon);
+    foreCasts = foreCast.fetchData(currentLocation);
+    CurrentWeather weather = await currentWeather.fetchData(currentLocation);
     AppThemeService appTheme = await appThemeService.getAppTheme();
 
     setState(() {

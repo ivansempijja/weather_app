@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app/config/api.dart';
 import 'package:weather_app/config/app_units_service.dart';
@@ -36,8 +37,8 @@ class ForeCast {
    */
 
   ///fetch forecast data from open weather API
-  Future<List<ForeCast>> fetchData() async {
-    var response = await API.apiGetCall(API.foreCastUrl);
+  Future<List<ForeCast>> fetchData(Position location) async {
+    var response = await API.apiGetCall(API.foreCastUrl, location);
     if (response['error']) {
       List<ForeCast> returnedData = [];
       return returnedData;

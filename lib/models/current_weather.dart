@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:weather_app/config/api.dart';
 import 'package:weather_app/config/app_units_service.dart';
 
@@ -24,25 +25,12 @@ class CurrentWeather {
     );
   }
 
-  fetchData(double latidute, double longitude) async {
-    AppUnitsService appUnitsService = AppUnitsService();
-    AppUnitsService appUnit = await appUnitsService.getAppUnits();
-
-    final dio = Dio();
-    try {
-      Response response = await dio.get(
-        API.currentWeatherUrl,
-        queryParameters: {
-          "lat": latidute,
-          "lon": longitude,
-          "appid": API.apiKey,
-          "units": appUnit.unit
-        },
-      );
-      return CurrentWeather.fromJson(response.data);
-    } on DioError catch (e) {
-      print(e.response);
+  fetchData(Position location) async {
+    var response = await API.apiGetCall(API.currentWeatherUrl, location);
+    if (response['error']) {
       return Future.error("error fetching weather data");
     }
+
+    return CurrentWeather.fromJson(response['data']);
   }
 }

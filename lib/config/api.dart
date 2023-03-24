@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:weather_app/config/app_units_service.dart';
-import 'package:weather_app/config/location_service.dart';
 
 class API {
   static String apiKey = "57a8d86d429a9e31d765f321604d5713";
@@ -12,10 +11,7 @@ class API {
   static String foreCastUrl =
       "https://api.openweathermap.org/data/2.5/forecast";
 
-  static Future apiGetCall(String url) async {
-    LocationService locationService = LocationService();
-    Position currentLocation = await locationService.getLocation();
-
+  static Future apiGetCall(String url, Position currentLocation) async {
     AppUnitsService appUnitsService = AppUnitsService();
     AppUnitsService appUnit = await appUnitsService.getAppUnits();
 
