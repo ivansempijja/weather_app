@@ -36,32 +36,19 @@ class ForeCast {
    */
 
   ///fetch forecast data from open weather API
-  Future<List<ForeCast>> fetchData(double latidute, double longitude) async {
-    AppUnitsService appUnitsService = AppUnitsService();
-    AppUnitsService appUnit = await appUnitsService.getAppUnits();
-
-    final dio = Dio();
-    try {
-      Response response = await dio.get(
-        API.foreCastUrl,
-        queryParameters: {
-          "lat": latidute,
-          "lon": longitude,
-          "appid": API.apiKey,
-          "units": appUnit.unit
-        },
-      );
-
-      List jsonResponse = [];
-      for (int i = 1; i <= 5; i++) {
-        //this loop adds one entry for each day to our forecast
-        int j = 8 * i;
-        jsonResponse.add(response.data["list"][j - 1]);
-      }
-      return jsonResponse.map((data) => ForeCast.fromJson(data)).toList();
-    } on DioError catch (e) {
-      print(e.response);
-      return Future.error("error fetching weather data");
+  Future<List<ForeCast>> fetchData() async {
+    var response = await API.apiGetCall(API.foreCastUrl);
+    if (response['error']) {
+      List<ForeCast> returnedData = [];
+      return returnedData;
     }
+
+    List jsonResponse = [];
+    for (int i = 1; i <= 5; i++) {
+      //this loop adds one entry for each day to our forecast
+      int j = 8 * i;
+      jsonResponse.add(response['data']['list'][j - 1]);
+    }
+    return jsonResponse.map((data) => ForeCast.fromJson(data)).toList();
   }
 }

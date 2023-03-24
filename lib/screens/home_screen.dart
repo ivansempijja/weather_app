@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
     double lon = currentLocation.longitude;
     double lat = currentLocation.latitude;
 
-    foreCasts = foreCast.fetchData(lat, lon);
+    foreCasts = foreCast.fetchData();
     CurrentWeather weather = await currentWeather.fetchData(lat, lon);
     AppThemeService appTheme = await appThemeService.getAppTheme();
 
@@ -50,7 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentTemp = 0;
   String weatherString = Helpers.setWeather("loading").toUpperCase();
   Color weatherColor = Helpers.setColor("loading");
-  String bgImage = Helpers.setBackgroundImage("sunny", "sea"); //Todo: get default loading theme image
+  String bgImage = Helpers.setBackgroundImage(
+      "sunny", "sea"); //Todo: get default loading theme image
 
   @override
   void initState() {
