@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:weather_app/config/navigation_service.dart';
 import 'package:weather_app/screens/home_screen.dart';
@@ -6,6 +7,8 @@ import 'package:weather_app/screens/home_screen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences.getInstance();
+  await Hive.initFlutter();
+  await Hive.openBox('app_cache');
   runApp(const MyApp());
 }
 

@@ -1,5 +1,6 @@
 import 'package:charcode/html_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:weather_app/config/color.dart';
 
 class Helpers {
@@ -9,6 +10,11 @@ class Helpers {
 
   static double displayHeight(BuildContext context) {
     return displaySize(context).height;
+  }
+
+  static String timeStampToday(int timestamp) {
+    DateTime day = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    return DateFormat('EEEE').format(day);
   }
 
   static String degreeSymbol = String.fromCharCode($deg);
