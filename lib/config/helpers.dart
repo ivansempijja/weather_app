@@ -19,12 +19,16 @@ class Helpers {
 
   static String degreeSymbol = String.fromCharCode($deg);
 
-  static Color setColor(String weather) {
+  static Color setColor(String weather, String theme) {
     if (weather == "rainy") {
       return WeatherAppColor.rainy;
     }
 
     if (weather == "sunny") {
+      if (theme == 'sea') {
+        return WeatherAppColor.seaSunny;
+      }
+
       return WeatherAppColor.sunny;
     }
 
@@ -32,7 +36,7 @@ class Helpers {
       return WeatherAppColor.cloudy;
     }
 
-    return WeatherAppColor.black;
+    return WeatherAppColor.bgGrey;
   }
 
   static String setWeather(String weather) {

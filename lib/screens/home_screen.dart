@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
       currentTemp = weather.currentTemp!.round();
       String apiWeather = Helpers.setWeather(weather.weather!);
       weatherString = apiWeather.toUpperCase();
-      weatherColor = Helpers.setColor(apiWeather);
+      weatherColor = Helpers.setColor(apiWeather, appTheme.theme!);
       bgImage = Helpers.setBackgroundImage(apiWeather, appTheme.theme!);
     });
   }
@@ -46,8 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
   int minTemp = 0;
   int maxTemp = 0;
   int currentTemp = 0;
-  String weatherString = Helpers.setWeather("loading").toUpperCase();
-  Color weatherColor = Helpers.setColor("loading");
+  String weatherString = Helpers.setWeather("loading..").toUpperCase();
+  Color weatherColor = Helpers.setColor("loading", "sea");
   String bgImage = Helpers.setBackgroundImage(
       "sunny", "sea"); //Todo: get default loading theme image
 
