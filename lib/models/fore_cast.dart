@@ -46,7 +46,7 @@ class ForeCast {
         return cacheJson;
       }
 
-      return Future.error("Connection error");
+      return Future.error("error fetching forecast data");
     }
 
     List jsonResponse = [];
