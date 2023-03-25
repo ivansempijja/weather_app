@@ -8,7 +8,7 @@ class Favourites {
   @HiveField(0)
   final String? name;
 
-  @HiveField(1)
+  @HiveType(typeId: 1)
   final Position? location;
 
   Favourites({this.name, this.location});

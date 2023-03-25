@@ -18,7 +18,13 @@ class Helpers {
     return DateFormat('EEEE').format(day);
   }
 
-  static TextStyle contentStyle(int size, {Color color = WeatherAppColor.black}) {
+  static String? validateText(String? value) {
+    if (value == null || value.isEmpty) return "This feild is required";
+    return null;
+  }
+
+  static TextStyle contentStyle(int size,
+      {Color color = WeatherAppColor.black}) {
     return primaryTextStyle(
       decoration: TextDecoration.none,
       color: color,

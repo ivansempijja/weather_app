@@ -1,11 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:weather_app/config/color.dart';
 import 'package:weather_app/config/helpers.dart';
+import 'package:weather_app/models/favourites.dart';
 
 class AddFavouriteDialog {
-  static void showAlert(BuildContext context) {
+  static void showAlert(BuildContext context, Position location) {
+    final formKey = GlobalKey<FormState>();
+    final TextEditingController nameController = TextEditingController();
+
+    saveItem() {
+      if (formKey.currentState!.validate()) {
+        Box<Favourites> box = Hive.box<Favourites>("favourites");
+        String name = nameController.text;
+        box.add(Favourites(name: name, location: location));
+        Navigator.of(context).pop();
+      }
+    }
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -23,9 +38,14 @@ class AddFavouriteDialog {
                     style: Helpers.contentStyle(14),
                   ),
                   8.height,
-                  TextFormField(
-                    autofocus: true,
-                    decoration: const InputDecoration(hintText: "e.g Home"),
+                  Form(
+                    key: formKey,
+                    child: AppTextField(
+                      controller: nameController,
+                      decoration: const InputDecoration(hintText: "e.g Home"),
+                      textFieldType: TextFieldType.NAME,
+                      validator: Helpers.validateText,
+                    ),
                   ),
                 ],
               ).paddingSymmetric(vertical: 8),
@@ -33,7 +53,9 @@ class AddFavouriteDialog {
             bottombar: Row(
               children: [
                 GFButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    saveItem();
+                  },
                   text: "Save",
                   color: WeatherAppColor.cloudy,
                   buttonBoxShadow: true,

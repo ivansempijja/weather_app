@@ -18,18 +18,15 @@ class FavouritesAdapter extends TypeAdapter<Favourites> {
     };
     return Favourites(
       name: fields[0] as String?,
-      location: fields[1] as Position?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Favourites obj) {
     writer
-      ..writeByte(2)
-      ..writeByte(0)
-      ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.location);
+      ..writeByte(0)
+      ..write(obj.name);
   }
 
   @override

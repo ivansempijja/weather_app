@@ -11,6 +11,7 @@ Future<void> main() async {
   SharedPreferences.getInstance();
   await Hive.initFlutter();
   await Hive.openBox('app_cache');
+  Hive.registerAdapter<Favourites>(FavouritesAdapter());
   await Hive.openBox<Favourites>("favourites");
   runApp(const MyApp());
 }
