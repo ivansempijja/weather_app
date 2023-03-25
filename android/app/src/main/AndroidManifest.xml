@@ -20,6 +20,10 @@
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
               />
+            <!-- Move key to local.properties and use the google secret plugin so it's not
+            commited to version controll -->  
+            <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyA1-JyZiJD0JfZRqZAVoDZvtz23YzauYUc"/>  
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
