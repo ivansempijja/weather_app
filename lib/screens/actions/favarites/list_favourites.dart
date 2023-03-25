@@ -145,13 +145,13 @@ class _ListFavouritesState extends State<ListFavourites> {
                                 child: const Icon(
                                   Icons.delete,
                                   size: 20,
-                                  color: Colors.red,
+                                  color: WeatherAppColor.cloudy,
                                 ),
                               ),
                               const Icon(
                                 Icons.remove_red_eye,
                                 size: 20,
-                                color: Colors.blue,
+                                color: WeatherAppColor.black,
                               ).paddingLeft(20),
                             ],
                           )

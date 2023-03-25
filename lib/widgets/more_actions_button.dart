@@ -37,7 +37,7 @@ class MoreActionsButton extends StatelessWidget {
                 color: WeatherAppColor.white,
                 size: 14,
               ),
-            ),
+            ).paddingBottom(4),
             subtitle: Text(
               'Manage theme, favorites, units and more',
               style: primaryTextStyle(
@@ -46,13 +46,13 @@ class MoreActionsButton extends StatelessWidget {
               ),
             ),
             trailing: const Icon(
-              Icons.arrow_right_outlined,
+              Icons.keyboard_arrow_right,
               size: 24,
               color: WeatherAppColor.white,
             ),
           ),
         ],
-      ),
+      ).paddingSymmetric(vertical: 10),
     );
   }
 }

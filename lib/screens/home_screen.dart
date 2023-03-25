@@ -133,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         //Add widget at end of list
                         return MoreActionsButton(
                           weatherColor: weatherColor,
-                        ).paddingBottom(30);
+                        ).paddingOnly(bottom: 30, top: 10);
                       }
 
                       return ForeCastListItem(

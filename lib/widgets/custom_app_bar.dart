@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nb_utils/nb_utils.dart';
 import 'package:weather_app/config/color.dart';
+import 'package:weather_app/config/helpers.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
@@ -15,7 +15,7 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(10, 55, 10, 10),
+      padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
       decoration: const BoxDecoration(
         color: WeatherAppColor.cloudy,
         borderRadius: BorderRadius.zero,
@@ -31,9 +31,9 @@ class CustomAppBar extends StatelessWidget {
               ),
               Text(
                 headerText,
-                style: primaryTextStyle(
+                style: Helpers.contentStyle(
+                  22,
                   color: WeatherAppColor.white,
-                  size: 22,
                 ),
               )
             ],

@@ -69,7 +69,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       actionsList[index],
                       style: primaryTextStyle(
                         color: WeatherAppColor.black,
-                        size: 16,
+                        size: 14,
                       ),
                     ),
                     const Icon(
@@ -83,7 +83,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 action(index);
               });
             },
-          ).paddingOnly(left: 8, right: 8, top: 8),
+          ).paddingOnly(left: 8, right: 8, top: 5),
         ],
       ),
     );

@@ -20,28 +20,26 @@ class ForeCastListItem extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        SizedBox(
-          width: 100,
-          child: Text(
-            day,
-            style: primaryTextStyle(
-              color: WeatherAppColor.white,
-              size: 18,
-            ),
+        Text(
+          day,
+          style: primaryTextStyle(
+            color: WeatherAppColor.white,
+            size: 16,
           ),
-        ),
+        ).withWidth(95),
         Image(
           image: AssetImage(weatherIcon),
-          height: 22,
-        ).paddingRight(25),
+          alignment: Alignment.centerRight,
+          fit: BoxFit.fill,
+        ).withSize(height: 20, width: 20),
         Text(
           "$temp${Helpers.degreeSymbol}",
           style: primaryTextStyle(
             color: WeatherAppColor.white,
-            size: 18,
+            size: 16,
           ),
         ),
       ],
-    ).paddingBottom(20);
+    ).paddingBottom(12);
   }
 }
