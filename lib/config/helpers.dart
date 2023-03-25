@@ -1,6 +1,7 @@
 import 'package:charcode/html_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:weather_app/config/color.dart';
 
 class Helpers {
@@ -15,6 +16,14 @@ class Helpers {
   static String timeStampToday(int timestamp) {
     DateTime day = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
     return DateFormat('EEEE').format(day);
+  }
+
+  static TextStyle contentStyle(int size, {Color color = WeatherAppColor.black}) {
+    return primaryTextStyle(
+      decoration: TextDecoration.none,
+      color: color,
+      size: size,
+    );
   }
 
   static String degreeSymbol = String.fromCharCode($deg);
@@ -52,7 +61,7 @@ class Helpers {
       return "cloudy";
     }
 
-    return "Loading";
+    return "Loading..";
   }
 
   static String setBackgroundImage(String weather, String theme) {

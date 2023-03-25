@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:weather_app/config/color.dart';
+import 'package:weather_app/widgets/add_favourite_dialog.dart';
 import 'package:weather_app/widgets/custom_app_bar.dart';
 
 class ListFavourites extends StatefulWidget {
@@ -22,7 +23,9 @@ class _ListFavouritesState extends State<ListFavourites> {
           CustomAppBar(
             headerText: "My Favorites",
             actionButton: GFButton(
-              onPressed: () {},
+              onPressed: () {
+                AddFavouriteDialog.showAlert(context);
+              },
               text: "Add",
               icon: const Icon(
                 Icons.add,
