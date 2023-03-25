@@ -4,11 +4,14 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:weather_app/config/navigation_service.dart';
 import 'package:weather_app/screens/home_screen.dart';
 
+import 'models/favourites.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences.getInstance();
   await Hive.initFlutter();
   await Hive.openBox('app_cache');
+  await Hive.openBox<Favourites>("favourites");
   runApp(const MyApp());
 }
 
