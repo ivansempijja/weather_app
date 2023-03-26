@@ -8,7 +8,8 @@ import 'package:weather_app/config/helpers.dart';
 import 'package:weather_app/models/favourites.dart';
 
 class AddFavouriteDialog {
-  static void showAlert(BuildContext context, Position location) {
+  static void showAlert(
+      BuildContext context, Position location, Function(bool) onSave) {
     final formKey = GlobalKey<FormState>();
     final TextEditingController nameController = TextEditingController();
 
@@ -17,6 +18,7 @@ class AddFavouriteDialog {
         Box<Favourites> box = Hive.box<Favourites>("favourites");
         String name = nameController.text;
         box.add(Favourites(name: name, location: location));
+        onSave(box.isNotEmpty);
         Navigator.of(context).pop();
       }
     }
@@ -51,7 +53,17 @@ class AddFavouriteDialog {
               ).paddingSymmetric(vertical: 8),
             ),
             bottombar: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                GFButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  text: "Cancel",
+                  color: WeatherAppColor.bgGrey,
+                  buttonBoxShadow: true,
+                ),
+                8.width,
                 GFButton(
                   onPressed: () {
                     saveItem();
@@ -60,15 +72,6 @@ class AddFavouriteDialog {
                   color: WeatherAppColor.cloudy,
                   buttonBoxShadow: true,
                 ),
-                8.width,
-                GFButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  text: "Cancel",
-                  color: WeatherAppColor.bgGrey,
-                  buttonBoxShadow: true,
-                )
               ],
             ),
           ),

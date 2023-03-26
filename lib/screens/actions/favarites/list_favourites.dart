@@ -7,6 +7,7 @@ import 'package:weather_app/config/color.dart';
 import 'package:weather_app/config/helpers.dart';
 import 'package:weather_app/config/location_service.dart';
 import 'package:weather_app/models/favourites.dart';
+import 'package:weather_app/screens/actions/favarites/list_map_view.dart';
 import 'package:weather_app/widgets/add_favourite_dialog.dart';
 import 'package:weather_app/widgets/custom_app_bar.dart';
 
@@ -19,7 +20,9 @@ class ListFavourites extends StatefulWidget {
 
 class _ListFavouritesState extends State<ListFavourites> {
   late Position location;
+  bool isNotEmpty = false;
   LocationService locationService = LocationService();
+  Box<Favourites> box = Hive.box<Favourites>("favourites");
 
   void setLocation() async {
     Position loc = await locationService.getLocation();
@@ -31,6 +34,7 @@ class _ListFavouritesState extends State<ListFavourites> {
   @override
   void initState() {
     setLocation();
+    isNotEmpty = box.isNotEmpty;
     super.initState();
   }
 
@@ -44,7 +48,15 @@ class _ListFavouritesState extends State<ListFavourites> {
             headerText: "My Favorites",
             actionButton: GFButton(
               onPressed: () async {
-                AddFavouriteDialog.showAlert(context, location);
+                AddFavouriteDialog.showAlert(
+                  context,
+                  location,
+                  (bool onSave) {
+                    setState(() {
+                      isNotEmpty = onSave;
+                    });
+                  },
+                );
               },
               text: "Add",
               icon: const Icon(
@@ -57,7 +69,7 @@ class _ListFavouritesState extends State<ListFavourites> {
           ),
           10.height,
           ValueListenableBuilder(
-            valueListenable: Hive.box<Favourites>("favourites").listenable(),
+            valueListenable: box.listenable(),
             builder: (context, Box<Favourites> box, _) {
               if (box.values.isEmpty) {
                 return Column(
@@ -122,21 +134,24 @@ class _ListFavouritesState extends State<ListFavourites> {
                                         actions: [
                                           GFButton(
                                             onPressed: () {
-                                              box.deleteAt(index);
-                                              Navigator.of(context).pop();
-                                            },
-                                            text: "Yes",
-                                            color: WeatherAppColor.cloudy,
-                                            buttonBoxShadow: true,
-                                          ),
-                                          GFButton(
-                                            onPressed: () {
                                               Navigator.of(context).pop();
                                             },
                                             text: "No",
                                             color: WeatherAppColor.bgGrey,
                                             buttonBoxShadow: true,
-                                          )
+                                          ),
+                                          GFButton(
+                                            onPressed: () {
+                                              box.deleteAt(index);
+                                              setState(() {
+                                                isNotEmpty = box.isNotEmpty;
+                                              });
+                                              Navigator.of(context).pop(box);
+                                            },
+                                            text: "Yes",
+                                            color: WeatherAppColor.cloudy,
+                                            buttonBoxShadow: true,
+                                          ),
                                         ],
                                       );
                                     },
@@ -148,10 +163,39 @@ class _ListFavouritesState extends State<ListFavourites> {
                                   color: WeatherAppColor.cloudy,
                                 ),
                               ),
-                              const Icon(
-                                Icons.remove_red_eye,
-                                size: 20,
-                                color: WeatherAppColor.black,
+                              InkWell(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text(
+                                          "Information",
+                                          style: Helpers.contentStyle(18),
+                                        ).paddingBottom(5),
+                                        content: Text(
+                                          "Location details using the places API have not yet been implemented.",
+                                          style: Helpers.contentStyle(14),
+                                        ),
+                                        actions: [
+                                          GFButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            text: "Dismiss",
+                                            color: WeatherAppColor.bgGrey,
+                                            buttonBoxShadow: true,
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
+                                child: const Icon(
+                                  Icons.remove_red_eye,
+                                  size: 20,
+                                  color: WeatherAppColor.black,
+                                ),
                               ).paddingLeft(20),
                             ],
                           )
@@ -165,6 +209,19 @@ class _ListFavouritesState extends State<ListFavourites> {
           ),
         ],
       ),
+      floatingActionButton: isNotEmpty
+          ? FloatingActionButton.extended(
+              icon: const Icon(
+                Icons.map,
+                color: WeatherAppColor.white,
+              ),
+              label: const Text("Map"),
+              backgroundColor: WeatherAppColor.cloudy,
+              onPressed: () {
+                ListMapView(location: location).launch(context);
+              },
+            )
+          : null,
     );
   }
 }

@@ -23,7 +23,12 @@
             <!-- Move key to local.properties and use the google secret plugin so it's not
             commited to version controll -->  
             <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="AIzaSyA1-JyZiJD0JfZRqZAVoDZvtz23YzauYUc"/>  
+               android:value="AIzaSyA1-JyZiJD0JfZRqZAVoDZvtz23YzauYUc"/> 
+
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+            <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>   
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
