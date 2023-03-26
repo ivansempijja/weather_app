@@ -15,7 +15,7 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
+      padding: const EdgeInsets.fromLTRB(10, 55, 10, 10),
       decoration: const BoxDecoration(
         color: WeatherAppColor.cloudy,
         borderRadius: BorderRadius.zero,

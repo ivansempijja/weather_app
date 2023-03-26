@@ -1,9 +1,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.weather_app">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
    <application
         android:label="weather_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+        <!-- Move key to local.properties and use the google secret plugin so it's not
+        commited to version controll -->  
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyA1-JyZiJD0JfZRqZAVoDZvtz23YzauYUc"/> 
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -19,15 +28,7 @@
             <meta-data
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
-              />
-            <!-- Move key to local.properties and use the google secret plugin so it's not
-            commited to version controll -->  
-            <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="AIzaSyA1-JyZiJD0JfZRqZAVoDZvtz23YzauYUc"/> 
-
-            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-            <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>   
+              /> 
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
