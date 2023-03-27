@@ -7,7 +7,7 @@ An awesome weather app written in flutter.
 - View current weather based on your location
 - View 5 day weather forecast
 - Save and view locations as favourites
-- View favourites on google map
+- View favourites on map
 - change app theme (between sea and forest)
 - Change app weather units (metric and imperial)
-- if offline app with display you last cached weather
+- if offline app will display you last cached weather

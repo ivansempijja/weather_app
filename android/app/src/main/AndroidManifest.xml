@@ -6,7 +6,7 @@
    <application
         android:label="weather_app"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
 
         <!-- Move key to local.properties and use the google secret plugin so it's not
         commited to version controll -->  

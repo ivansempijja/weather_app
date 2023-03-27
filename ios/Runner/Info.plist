@@ -30,6 +30,12 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>I need location</string>
+	<key>NSLocationUsageDescription</key>
+	<string>I need location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>I need location</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -51,11 +57,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSLocationUsageDescription</key>
- 	<string>I need location</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>I need location</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>I need location</string>
 </dict>
 </plist>
