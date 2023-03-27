@@ -1,16 +1,13 @@
 # weather_app
 
-A new Flutter project.
+An awesome weather app written in flutter.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- View current weather based on your location
+- View 5 day weather forecast
+- Save and view locations as favourites
+- View favourites on google map
+- change app theme (between sea and forest)
+- Change app weather units (metric and imperial)
+- if offline app with display you last cached weather
